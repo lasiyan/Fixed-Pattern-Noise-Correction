@@ -69,11 +69,11 @@ BOOL CActivProcess::LoadFile(CMyImage *pFile)
 
 	if(pFile->GetBitCount() == 8)
 	{
-		fseek(fp, 10 + 40 + sizeof(RGBQUAD) * 256, SEEK_SET);
+		fseek(fp, sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + sizeof(RGBQUAD) * 256, SEEK_SET);
 	}
 	if(pFile->GetBitCount() > 8)
 	{
-		fseek(fp, 10 + 40, SEEK_SET);
+		fseek(fp, sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER), SEEK_SET);
 	}
 
 	fread(pFile->GetPixels(), (pFile->GetBitCount() / 8), pFile->GetImageSize(), fp);
